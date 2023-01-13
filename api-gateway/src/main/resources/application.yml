@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: hi
+          uri: lb://HI-SERVICE
+          predicates:
+            - Path=/hi/**
+          filters:
+            - AddRequestHeader=hi-request, hi-request-header
+            - AddResponseHeader=hi-response, hi-response-header
+  application:
+    name: API-GATEWAY
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
