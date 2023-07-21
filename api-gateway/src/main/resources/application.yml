@@ -2,13 +2,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: hi
-          uri: lb://HI-SERVICE
+        - id: doctor-appointment
+          uri: lb://DOCTOR-APPOINTMENT
           predicates:
-            - Path=/hi/**
-          filters:
-            - AddRequestHeader=hi-request, hi-request-header
-            - AddResponseHeader=hi-response, hi-response-header
+            - Path=/doctor-appointment/**
   application:
     name: API-GATEWAY
 eureka:

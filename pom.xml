@@ -5,9 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>
+            2022.0.2
+        </spring-cloud.version>
+        <liquibase.version>4.18.0</liquibase.version>
+        <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
+    </properties>
 
     <groupId>com.example</groupId>
     <artifactId>spring-microservie</artifactId>
@@ -18,14 +26,10 @@
 
     <modules>
         <module>api-gateway</module>
-        <module>sayHi</module>
+        <module>doctor-appointment</module>
         <module>discovery-service</module>
-    </modules>
-
-    <properties>
-        <java.version>11</java.version>
-        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
-    </properties>
+        <module>doctor-appointment</module>
+    </modules>7
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

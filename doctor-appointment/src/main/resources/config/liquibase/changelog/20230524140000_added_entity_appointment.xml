@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-table-Appointment" author="raha-fayyaz">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="appointment"/>
+            </not>
+        </preConditions>
+        <createTable tableName="appointment">
+            <column name="appointment_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="appointment_slot_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="patient_id"
+                                 baseTableName="appointment"
+                                 constraintName="fk_patient_id"
+                                 referencedColumnNames="patient_id"
+                                 referencedTableName="patient"/>
+
+        <addForeignKeyConstraint baseColumnNames="appointment_slot_id"
+                                 baseTableName="appointment"
+                                 constraintName="fk_appointment_slot_id"
+                                 referencedColumnNames="appointment_slot_id"
+                                 referencedTableName="appointment_slot"/>
+    </changeSet>
+
+
+</databaseChangeLog>
