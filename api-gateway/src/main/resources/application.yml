@@ -6,6 +6,8 @@ spring:
           uri: lb://DOCTOR-APPOINTMENT
           predicates:
             - Path=/doctor-appointment/**
+          filters:
+            - StripPrefix=1
   application:
     name: API-GATEWAY
 eureka:
