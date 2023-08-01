@@ -53,7 +53,7 @@ public class Filter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        return "/user/login".equals(path)|| "/user/verification/*".equals(path) || "/user/user".equals(path)|| pathMatcher.match("/swagger-ui/**",path);
+        return "/login".equals(path) || "/register".equals(path)|| pathMatcher.match("/swagger-ui/**",path);
     }
 }
 

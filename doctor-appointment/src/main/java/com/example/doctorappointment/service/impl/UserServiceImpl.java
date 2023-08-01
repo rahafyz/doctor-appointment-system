@@ -1,12 +1,10 @@
 package com.example.doctorappointment.service.impl;
 
-import com.example.doctorappointment.constant.Constant;
 import com.example.doctorappointment.exception.CustomException;
 import com.example.doctorappointment.model.User;
-import com.example.doctorappointment.rabbitMq.ProducerService;
 import com.example.doctorappointment.repository.UserRepository;
+import com.example.doctorappointment.security.JwtBuilder;
 import com.example.doctorappointment.service.UserService;
-import com.example.doctorappointment.rabbitMq.MessageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,19 +14,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final ProducerService producerService;
+    private final JwtBuilder jwtBuilder;
+
+
     @Override
-    public User register(User user) {
-        if (userRepository.existsUserByEmailAddressOrUserName(user.getEmailAddress(), user.getUserName()))
+    public User save(User user) {
+        if (userRepository.existsUserByEmailAddressOrUserName(user.getEmailAddress(), user.getPassword()))
             throw new CustomException("this user already exist!", HttpStatus.CONFLICT);
-        User newUser = userRepository.save(user);
-
-        MessageDTO message = new MessageDTO()
-                .emailAddress(newUser.getEmailAddress())
-                .message(Constant.welcomeMessage);
-        producerService.sendMessage(message);
-
-        return newUser;
+        return userRepository.save(user);
     }
 
     @Override
@@ -38,9 +31,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String login(String username, String password) {
+        if (!authentication(username, password))
+            throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
+        return jwtBuilder.generateToken(userRepository.findUserByUserName(username).get());
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findUserByUserName(username).orElseThrow(
-                () -> new CustomException("user doesn't exist!",HttpStatus.NOT_FOUND)
+                () -> new CustomException("user doesn't exist!", HttpStatus.NOT_FOUND)
         );
     }
 }

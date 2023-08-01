@@ -1,7 +1,7 @@
 package com.example.doctorappointment.model;
 
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -22,7 +22,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user-name")
+    @Column(name = "username")
     private String userName;
 
     @Column(name = "email_address", unique = true)

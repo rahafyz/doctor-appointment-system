@@ -20,16 +20,13 @@
     <groupId>com.example</groupId>
     <artifactId>doctor-appointment-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-microservie</name>
-    <description>spring-microservie</description>
     <packaging>pom</packaging>
 
     <modules>
         <module>api-gateway</module>
         <module>doctor-appointment</module>
         <module>discovery-service</module>
-        <module>doctor-appointment</module>
-    </modules>7
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
